@@ -2,6 +2,7 @@ package fr.shall0wer.googleauth.commands;
 
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import fr.shall0wer.googleauth.Main;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -30,7 +31,9 @@ public class CodeCommand implements CommandExecutor {
                     GoogleAuthenticator gauth = new GoogleAuthenticator();
                     if(gauth.authorize(config.getString("authcodes." + player.getUniqueId() + ".key"), code)){
                         player.sendMessage("§aCode is valid, welcome !");
-                        Main.getCancelMove().remove(player.getUniqueId());
+                        Bukkit.getScheduler().runTaskLater(Main.getINSTANCE(), () -> {
+                            Main.getCancelMove().remove(player.getUniqueId());
+                        }, 2);
                     } else {
                         player.sendMessage("§cInvalid code.");
                     }

@@ -1,6 +1,6 @@
 package fr.shall0wer.googleauth;
 
-import com.sun.org.apache.bcel.internal.classfile.Code;
+import fr.shall0wer.googleauth.commands.AdminCommand;
 import fr.shall0wer.googleauth.commands.CodeCommand;
 import fr.shall0wer.googleauth.managers.ListenerManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,15 +19,18 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         INSTANCE = this;
-        authFile = new File(Main.INSTANCE.getDataFolder(), "auth.yml");
+        authFile = new File(Main.INSTANCE.getDataFolder() + "auth.yml");
 
+        checkFile();
         new ListenerManager(this);
+
+        getCommand("2fa").setExecutor(new AdminCommand());
         getCommand("code").setExecutor(new CodeCommand());
     }
 
     @Override
     public void onDisable() {
-
+        // Some good code :)
     }
 
     public void checkFile() {
@@ -37,7 +40,6 @@ public class Main extends JavaPlugin {
         } catch (IOException e){
             e.printStackTrace();
         }
-
     }
 
     public static Main getINSTANCE() {

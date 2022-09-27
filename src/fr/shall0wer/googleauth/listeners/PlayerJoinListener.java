@@ -2,6 +2,7 @@ package fr.shall0wer.googleauth.listeners;
 
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
+import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
 import fr.shall0wer.googleauth.Main;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -22,7 +23,7 @@ public class PlayerJoinListener implements Listener {
         if(config.getBoolean("authcodes." + player.getUniqueId() + ".enable")){
             Main.getCancelMove().add(player.getUniqueId());
 
-            if(config.getString("authcodes." + player.getUniqueId() + ".key").equals("")){
+            if(config.getString("authcodes." + player.getUniqueId() + ".key") == null){
                 GoogleAuthenticator gauth = new GoogleAuthenticator();
                 GoogleAuthenticatorKey key = gauth.createCredentials();
 
