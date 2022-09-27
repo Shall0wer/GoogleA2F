@@ -19,7 +19,7 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         INSTANCE = this;
-        authFile = new File(Main.INSTANCE.getDataFolder() + "auth.yml");
+        authFile = new File(Main.INSTANCE.getDataFolder() + "/auth.yml");
 
         checkFile();
         new ListenerManager(this);
@@ -36,6 +36,9 @@ public class Main extends JavaPlugin {
     public void checkFile() {
         if(authFile.exists()) return;
         try {
+            File dataFolder = new File(getDataFolder() + "/");
+            if(!dataFolder.exists()) dataFolder.mkdir();
+
             authFile.createNewFile();
         } catch (IOException e){
             e.printStackTrace();
