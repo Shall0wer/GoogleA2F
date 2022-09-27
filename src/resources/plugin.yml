@@ -1,0 +1,6 @@
+name: GoogleAuth
+author: Shall0wer
+version: 1.0
+main: fr.shall0wer.googleauth.Main
+commands:
+  code:
